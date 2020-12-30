@@ -60,12 +60,12 @@ coast <- ne_countries(continent = "South America", returnclass = "sf") %>%
 
 
 # Erase EEZ and Coastline from the closure polygons
-cropped <- st_difference(closure_areas, eez) %>% 
-  st_difference(coast) %>% 
+cropped <- st_difference(closure_areas, coast) %>% 
+  st_difference(eez) %>%
   st_make_valid()
 
 # Export the polygons
 st_write(cropped,
-         dsn = file.path(project_path, "data", "processed_data", "high_seas_closure_polygons.shp"))
+         dsn = file.path(project_path, "data", "processed_data", "high_seas_closure_polygons.gpkg"))
 
 # END SCRIPT

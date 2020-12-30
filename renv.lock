@@ -658,10 +658,10 @@
     },
     "sf": {
       "Package": "sf",
-      "Version": "0.9-5",
+      "Version": "0.9-6",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "5b23b3b72c0d9962a59c57b110076f9a"
+      "Hash": "bf0ef23231efe31576e08d69772892ef"
     },
     "sp": {
       "Package": "sp",
