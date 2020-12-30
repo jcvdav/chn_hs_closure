@@ -3,8 +3,8 @@
 # This script creates an sf object containing two polygons.
 # It then exports the object as a geopackage.
 # 
-# The communication (in Chinese) found here contains 
-# he coordinates for the polygons. The text reads:
+# The communication (in Chinese) found here* contains 
+# the coordinates for the polygons. The text reads:
 # 
 # According to the results of scientific research
 # monitoring and expert argumentation, starting from 2020,
@@ -15,6 +15,8 @@
 # - First, from July 1 to September 30, 32° S-44°S, 48°W-60°W in the high seas of the Southwest Atlantic Ocean# 
 # - second is between 5°N-5°S and 110°W-95°W from September 1 to November 30
 # 
+# 
+# *: http://www.gov.cn/zhengce/zhengceku/2020-06/03/content_5516936.htm
 
 # Load packages
 library(sf)
@@ -66,6 +68,6 @@ cropped <- st_difference(closure_areas, coast) %>%
 
 # Export the polygons
 st_write(cropped,
-         dsn = file.path(project_path, "data", "processed_data", "high_seas_closure_polygons.gpkg"))
+         dsn = file.path(project_data_path, "processed_data", "high_seas_closure_polygons.gpkg"))
 
 # END SCRIPT
