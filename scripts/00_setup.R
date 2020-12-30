@@ -10,10 +10,12 @@
 sys_path <- startR::get_filestream_path()
 
 # Path to emLab data folder
-data_path <- file.path(sys_path,"Shared drives/emlab/data")
+emLab_data_path <- file.path(sys_path,"Shared drives/emlab/data")
 
-# Path to this project folder
+# Path to this project's folder
 project_path <- file.path(sys_path,"Shared drives/emlab/projects/current-projects/china_hs_closure")
+## Path to this project's data folder
+project_data_path <- file.path(sys_path,"Shared drives/emlab/projects/current-projects/china_hs_closure/data")
 
 #===================================
 # Source functions
