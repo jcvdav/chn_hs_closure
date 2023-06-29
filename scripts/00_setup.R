@@ -7,7 +7,7 @@
 # File paths
 
 # Check for OS
-sys_path <- startR::get_filestream_path()
+sys_path <- ifelse(Sys.info()["sysname"]=="Windows", "G:/","/Volumes/GoogleDrive/")
 
 # Path to emLab data folder
 emLab_data_path <- file.path(sys_path,"Shared drives/emlab/data")

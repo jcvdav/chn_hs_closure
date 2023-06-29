@@ -16,7 +16,7 @@
 # - second is between 5°N-5°S and 110°W-95°W from September 1 to November 30
 # 
 # 
-# *: http://www.gov.cn/zhengce/zhengceku/2020-06/03/content_5516936.htm
+# *http://www.gov.cn/zhengce/zhengceku/2020-06/03/content_5516936.htm
 
 # Load packages
 library(sf)
@@ -30,7 +30,10 @@ closure_1 <- cbind(x = c(-48, -60, -60, -48, -48),
   list() %>% 
   st_polygon() %>% 
   st_sfc() %>% 
-  st_sf(polygon = "Atlantic", geometry = .)
+  st_sf(polygon = "Atlantic",
+        closure_start = lubridate::date("2020-07-01"),
+        closure_end = lubridate::date("2020-09-30"),
+        geometry = .)
 
 # September 1 to Nov 30
 closure_2 <- cbind (x = c(-110, -95, -95, -110, -110),
@@ -38,7 +41,10 @@ closure_2 <- cbind (x = c(-110, -95, -95, -110, -110),
   list() %>% 
   st_polygon() %>% 
   st_sfc() %>% 
-  st_sf(polygon = "Pacific", geometry = .)
+  st_sf(polygon = "Pacific",
+        closure_start = lubridate::date("2020-09-01"),
+        closure_end = lubridate::date("2020-11-30"), 
+        geometry = .)
 
 # Combine them together
 closure_areas <- rbind(closure_1, closure_2) %>% 
@@ -46,8 +52,10 @@ closure_areas <- rbind(closure_1, closure_2) %>%
   st_make_valid()
 
 # Load Exclusive Economic Zones
-eez <- st_read(dsn = file.path(data_path, "marine-regions-eez-v11", "World_EEZ_v11_20191118"),
-                layer = "eez_v11") %>% 
+eez <- st_read(dsn = here("data",
+                          "raw_data",
+                          "World_EEZ_v11_20191118_gpkg",
+                          "eez_v11.gpkg")) %>% 
   filter(ISO_SOV1 %in% c("ECU", "ARG", "BRA", "URY")) %>%                                       # Keep only relevant nations
   st_combine() %>%                                                                              # Combine and unionize to intersect and erase
   st_union() %>% 
@@ -68,6 +76,8 @@ cropped <- st_difference(closure_areas, coast) %>%
 
 # Export the polygons
 st_write(cropped,
-         dsn = file.path(project_data_path, "processed_data", "high_seas_closure_polygons.gpkg"))
+         dsn = here("data",
+                    "processed_data",
+                    "high_seas_closure_polygons.gpkg"))
 
 # END SCRIPT
