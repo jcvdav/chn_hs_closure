@@ -48,7 +48,7 @@ build_windows <- function(years, start, end, area) {
 ## PROCESSING ##################################################################
 
 # Define closure years
-years <- 2020:2023
+years <- 2020:2022
 # Build a table of dates ofr each closure --------------------------------------
 atlantic_window <- build_windows(years = years, start = 7, end = 9, area = "Atlantic")
 pacific_window <- build_windows(years = years, start = 9, end = 11, area = "Pacific")

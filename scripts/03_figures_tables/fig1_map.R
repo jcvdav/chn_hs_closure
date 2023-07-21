@@ -6,7 +6,9 @@
 # juancvd@stanford.edu
 # date
 #
-# Uses: Flanders Marine Institute (2020). Union of the ESRI Country shapefile and the Exclusive Economic Zones (version 3). Available online at https://www.marineregions.org/. https://doi.org/10.14284/403
+# Uses: Flanders Marine Institute (2020). Union of the ESRI Country shapefile
+# and the Exclusive Economic Zones (version 3). Available online at
+# https://www.marineregions.org/. https://doi.org/10.14284/403
 #
 ################################################################################
 
