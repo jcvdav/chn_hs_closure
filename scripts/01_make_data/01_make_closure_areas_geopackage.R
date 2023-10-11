@@ -15,6 +15,7 @@
 # - First, from July 1 to September 30, 32° S-44°S, 48°W-60°W in the high seas of the Southwest Atlantic Ocean# 
 # - second is between 5°N-5°S and 110°W-95°W from September 1 to November 30
 # 
+# Published June 1, 2020
 # 
 # *http://www.gov.cn/zhengce/zhengceku/2020-06/03/content_5516936.htm
 

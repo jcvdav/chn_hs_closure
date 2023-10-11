@@ -61,21 +61,18 @@ bbox <- hs_closures %>%
 ## VISUALIZE ###################################################################
 
 # Build map --------------------------------------------------------------------
-eez_col <- "#9ECEEB"
-land_col <- "#8996A0"
-closure_pal <- c("#C13832", "#D28E00")
-
 map <- ggplot() +
   geom_sf(data = eez, fill = eez_col, color = eez_col) +
   geom_sf(data = land, fill = land_col, color = land_col) +
   geom_sf(data = hs_closures, aes(fill = polygon), color = "black", linewidth = 0.2) +
-  theme_bw() +
   labs(x = NULL, y = NULL) +
-  scale_fill_manual(values = closure_pal) +
+  scale_fill_manual(values = polygon_pal) +
   scale_y_continuous(expand = c(0, 0)) +
   scale_x_continuous(expand = c(0, 0)) +
   coord_sf(crs = "EPSG:8858") +
-  theme(legend.position = "None")
+  theme(legend.position = "None",
+        panel.grid.major = element_line(linewidth = 0.5,
+                                        color = "gray"))
 
 calendar <- expand_grid(polygon = c("Atlantic", "Pacific"),
                                 month = month.abb) %>% 
@@ -83,17 +80,20 @@ calendar <- expand_grid(polygon = c("Atlantic", "Pacific"),
   mutate(closed = case_when(polygon == "Atlantic" & month %in% c("Jul", "Aug", "Sep") ~ "Closed",
                             polygon == "Pacific" & month %in% c("Sep", "Oct", "Nov") ~ "Closed",
                             T ~ "Open")) %>% 
-  ggplot(aes(x = month, y = polygon, fill = polygon, alpha = closed)) +
+  ggplot(aes(x = month,
+             y = polygon,
+             fill = polygon,
+             alpha = closed)) +
   geom_tile(color = "black") +
-  scale_fill_manual(values = closure_pal) +
+  scale_fill_manual(values = polygon_pal) +
   scale_alpha_manual(values = c(1, 0)) +
   scale_y_discrete(expand = c(0, 0)) +
   scale_x_discrete(expand = c(0, 0)) +
   coord_equal() +
-  theme_bw() +
   theme(legend.position = "None",
         axis.title.y = element_blank(),
-        axis.text.y = element_blank(), axis.ticks.y = element_blank()) +
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank()) +
   labs(x = "Month")
 
 

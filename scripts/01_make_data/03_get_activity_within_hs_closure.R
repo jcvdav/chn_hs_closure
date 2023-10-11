@@ -18,6 +18,7 @@ pacman::p_load(
   bigrquery,
   DBI,
   sf,
+  furrr,
   tidyverse
 )
 
@@ -63,7 +64,7 @@ chn_activity <- tbl(con, "pipe_v20201001_fishing") %>%
   filter(between(lon, -60, -48) & between(lat, -44, -32) |
            between(lon, -110, -95) & between(lat, -5, 5)) %>% 
   mutate(date = sql("EXTRACT(date FROM timestamp)"),
-         polygon = ifelse(lon < -80, "Pacific", "Ocean")) %>% 
+         polygon = ifelse(lon < -80, "Pacific", "Atlantic")) %>% 
   filter(date > "2016-01-01") %>% 
   select(polygon, date, ssvid, lat, lon, nnet_score, night_loitering, hours)
 
@@ -76,7 +77,7 @@ activity_collected <- chn_activity  %>%
 
 # Perform spatial filter in parallel -------------------------------------------
 # Declare future strategy
-future::plan(multisession, workers = 2)
+plan(multisession, workers = 2)
 
 # Call filter
 activity_spatialy_fltered <- future_map2_dfr(activity_collected,
@@ -131,4 +132,3 @@ ts <- range %>%
 # X ----------------------------------------------------------------------------
 saveRDS(object = ts,
         file = here("data", "processed_data", "ts_activity_within"))
-
